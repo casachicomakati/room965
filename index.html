@@ -3,1333 +3,518 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Room 965 — Air Residences Makati</title>
+  <title>Room 965 — Blanc Zen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #f5f5f7;
-      --bg-white: #ffffff;
-      --headline: #1d1d1f;
-      --body: #6e6e73;
-      --blue: #0071e3;
-      --blue-hover: #0077ed;
-      --radius: 20px;
-      --shadow: 0 2px 20px rgba(0,0,0,0.07);
-      --shadow-md: 0 4px 32px rgba(0,0,0,0.10);
-      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      --bg: #fafaf8;
+      --white: #ffffff;
+      --surface: #ffffff;
+      --stone: #e8e0d5;
+      --stone-2: #f0ebe4;
+      --sage: #6b8f71;
+      --sage-light: rgba(107,143,113,0.09);
+      --sage-border: rgba(107,143,113,0.22);
+      --text: #1a1a1a;
+      --text-dim: #5a5a5a;
+      --text-muted: #9a9a9a;
+      --border: #e8e0d5;
+      --red: #c0392b;
+      --radius: 18px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 1px 8px rgba(0,0,0,0.05);
+      --shadow: 0 4px 24px rgba(0,0,0,0.07);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.1);
+      --ease: cubic-bezier(0.25,0.46,0.45,0.94);
+      --ease-out: cubic-bezier(0.16,1,0.3,1);
     }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--headline);
-      min-height: 100vh;
-      padding-bottom: 90px;
-      -webkit-font-smoothing: antialiased;
-    }
+    .hero { background: var(--white); text-align: center; padding: 80px 24px 60px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(107,143,113,0.05) 0%, transparent 70%); pointer-events: none; }
+    .hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 20px; animation: zenFade 1s var(--ease-out) both; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 11vw, 96px); font-weight: 300; color: var(--text); letter-spacing: -0.01em; line-height: 1.0; animation: zenFade 1s var(--ease-out) 0.1s both; }
+    .hero-rule { width: 48px; height: 1px; background: var(--sage); margin: 22px auto; animation: zenFade 1s var(--ease-out) 0.2s both; }
+    .hero p { font-size: 14px; font-weight: 300; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; animation: zenFade 1s var(--ease-out) 0.3s both; }
+    .hero-pills { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; justify-content: center; animation: zenFade 1s var(--ease-out) 0.4s both; }
+    .hero-pill { background: var(--stone-2); border: 1px solid var(--stone); color: var(--text-dim); font-size: 11px; font-weight: 500; padding: 6px 16px; border-radius: 100px; letter-spacing: 0.06em; text-transform: uppercase; }
+    @keyframes zenFade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* ── STICKY TOP NAV ─────────────────────────────────────── */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      background: rgba(255,255,255,0.85);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-      padding: 0 16px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      display: flex;
-      gap: 4px;
-      white-space: nowrap;
-    }
-    .top-nav::-webkit-scrollbar { display: none; }
+    .container { max-width: 680px; margin: 0 auto; padding: 0 20px 120px; }
 
-    .nav-tab {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 12px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--body);
-      background: none;
-      border: none;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
-      font-family: var(--font);
-      white-space: nowrap;
-    }
-    .nav-tab:hover { color: var(--headline); }
-    .nav-tab.active {
-      color: var(--blue);
-      border-bottom-color: var(--blue);
-      font-weight: 600;
-    }
+    .quick-bar { display: flex; gap: 12px; padding: 28px 0 20px; overflow-x: auto; scrollbar-width: none; }
+    .quick-bar::-webkit-scrollbar { display: none; }
+    .quick-item { flex: 1; min-width: 90px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 12px; text-align: center; box-shadow: var(--shadow-sm); transition: box-shadow 0.3s, transform 0.3s; }
+    .quick-item:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .qi-icon { font-size: 22px; display: block; margin-bottom: 8px; }
+    .qi-label { font-size: 9px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.14em; }
+    .qi-val { font-size: 15px; font-weight: 500; color: var(--text); margin-top: 4px; font-family: 'Cormorant Garamond', serif; }
 
-    /* ── HERO ───────────────────────────────────────────────── */
-    .hero {
-      background: linear-gradient(160deg, #1d1d1f 0%, #2c2c2e 40%, #3a3a3c 100%);
-      color: #fff;
-      padding: 56px 24px 64px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,113,227,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-eyebrow {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 12px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.7s var(--ease) 0.1s forwards;
-    }
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      color: #fff;
-      opacity: 0;
-      transform: translateY(24px);
-      animation: fadeUp 0.7s var(--ease) 0.25s forwards;
-    }
-    .hero-sub {
-      font-size: 17px;
-      color: rgba(255,255,255,0.65);
-      margin-top: 12px;
-      font-weight: 400;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.7s var(--ease) 0.4s forwards;
-    }
-    .hero-pills {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 28px;
-      flex-wrap: wrap;
-      opacity: 0;
-      transform: translateY(16px);
-      animation: fadeUp 0.7s var(--ease) 0.55s forwards;
-    }
-    .hero-pill {
-      background: rgba(255,255,255,0.10);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 100px;
-      padding: 8px 16px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.85);
-      font-weight: 500;
-    }
+    .nav-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 10px 20px 16px; scrollbar-width: none; position: sticky; top: 0; z-index: 100; background: linear-gradient(to bottom, var(--bg) 82%, transparent); margin: 0 -20px; }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tab { flex-shrink: 0; background: var(--white); border: 1px solid var(--border); border-radius: 100px; padding: 8px 18px; font-size: 12px; font-weight: 500; color: var(--text-dim); cursor: pointer; white-space: nowrap; transition: all 0.25s var(--ease); font-family: 'Inter', sans-serif; letter-spacing: 0.02em; box-shadow: var(--shadow-sm); }
+    .nav-tab:hover { border-color: var(--sage-border); color: var(--text); box-shadow: var(--shadow); }
+    .nav-tab.active { background: var(--sage); border-color: var(--sage); color: #fff; font-weight: 600; box-shadow: 0 2px 12px rgba(107,143,113,0.3); }
 
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── CONTAINER ──────────────────────────────────────────── */
-    .container {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 24px 16px 16px;
-    }
-
-    /* ── SECTIONS ───────────────────────────────────────────── */
     .section { display: none; }
     .section.visible { display: block; }
 
-    /* ── CARDS ──────────────────────────────────────────────── */
-    .card {
-      background: var(--bg-white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 16px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), box-shadow 0.3s var(--ease);
-    }
+    .card { background: var(--white); border-radius: var(--radius); padding: 28px 24px; margin-bottom: 14px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); opacity: 0; transform: translateY(20px); transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out), box-shadow 0.3s; }
     .card.in-view { opacity: 1; transform: translateY(0); }
-    .card:hover { box-shadow: var(--shadow-md); }
-
+    .card:hover { box-shadow: var(--shadow); }
     .card:nth-child(1) { transition-delay: 0ms; }
-    .card:nth-child(2) { transition-delay: 80ms; }
-    .card:nth-child(3) { transition-delay: 160ms; }
-    .card:nth-child(4) { transition-delay: 240ms; }
-    .card:nth-child(5) { transition-delay: 320ms; }
+    .card:nth-child(2) { transition-delay: 70ms; }
+    .card:nth-child(3) { transition-delay: 140ms; }
+    .card:nth-child(4) { transition-delay: 210ms; }
+    .card:nth-child(5) { transition-delay: 280ms; }
+    .card-warm { background: linear-gradient(135deg, #fdf8f2, #f8f2ea); border-left: 3px solid #c9a24488; }
+    .card-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 400; color: var(--text); letter-spacing: 0.01em; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
 
-    .card-title {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--headline);
-      margin-bottom: 16px;
-      letter-spacing: -0.01em;
-    }
-
-    /* ── HIGHLIGHT CARD ─────────────────────────────────────── */
-    .card-highlight {
-      background: linear-gradient(135deg, #fafafa, #f5f5f7);
-      border-left: 3px solid var(--blue);
-    }
-    .card-highlight .card-title { color: var(--blue); }
-
-    /* ── AMBER NOTICE CARD ──────────────────────────────────── */
-    .card-notice {
-      background: linear-gradient(135deg, #fffbf0, #fff8e7);
-      border-left: 3px solid #f0a500;
-    }
-    .card-notice .card-title { color: #b07800; }
-
-    /* ── INFO ROWS ──────────────────────────────────────────── */
-    .info-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid #f5f5f7;
-    }
+    .info-row { display: flex; align-items: flex-start; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--border); }
     .info-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .info-row:first-of-type { padding-top: 0; }
-    .info-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-    .info-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--body); margin-bottom: 3px; }
-    .info-val { font-size: 15px; font-weight: 500; color: var(--headline); line-height: 1.5; }
-    .info-val small { font-size: 13px; font-weight: 400; color: var(--body); }
+    .info-row:first-child { padding-top: 0; }
+    .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+    .info-label { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 4px; }
+    .info-val { font-size: 14px; font-weight: 400; color: var(--text); line-height: 1.65; }
 
-    /* ── STEP LIST ──────────────────────────────────────────── */
-    .step-list { display: flex; flex-direction: column; gap: 0; }
-    .step {
-      display: flex;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid #f5f5f7;
-      align-items: flex-start;
-    }
-    .step:last-child { border-bottom: none; padding-bottom: 0; }
-    .step-num {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: var(--blue);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      counter-increment: step-counter;
-    }
-    .step-list { counter-reset: step-counter; }
-    .step-num::before { content: counter(step-counter); }
-    .step-text { font-size: 14px; color: var(--body); line-height: 1.6; padding-top: 4px; }
-    .step-text strong { color: var(--headline); display: block; margin-bottom: 2px; font-weight: 600; }
-    .step-text span { display: block; }
+    .step-list { display: flex; flex-direction: column; }
+    .step { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+    .step:last-child { border-bottom: none; }
+    .step-num { width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: var(--sage); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; font-family: 'Inter', sans-serif; }
+    .step-text { font-size: 14px; color: var(--text-dim); }
+    .step-text strong { font-size: 14px; font-weight: 600; color: var(--text); display: block; margin-bottom: 4px; }
 
-    /* ── RULES GRID ─────────────────────────────────────────── */
-    .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .rule-tag {
-      display: flex; align-items: center; gap: 8px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-size: 13px;
-      font-weight: 500;
-    }
-    .rule-tag.allowed { background: #f0fdf4; color: #166534; }
-    .rule-tag.disallowed { background: #fef2f2; color: #991b1b; }
-    .rt-icon { font-size: 16px; }
-
-    /* ── ACCORDION ──────────────────────────────────────────── */
-    .accordion-item {
-      border-bottom: 1px solid #f5f5f7;
-    }
+    .accordion-item { border-bottom: 1px solid var(--border); }
     .accordion-item:last-child { border-bottom: none; }
-    .accordion-trigger {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 0;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font);
-      text-align: left;
-    }
+    .accordion-trigger { display: flex; justify-content: space-between; align-items: center; width: 100%; background: none; border: none; cursor: pointer; padding: 15px 0; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--text-dim); transition: color 0.2s; }
+    .accordion-trigger:hover { color: var(--text); }
+    .accordion-trigger[aria-expanded="true"] { color: var(--sage); }
     .accordion-trigger-left { display: flex; align-items: center; gap: 10px; }
-    .acc-icon { font-size: 18px; }
-    .acc-label { font-size: 15px; font-weight: 600; color: var(--headline); }
-    .acc-arrow {
-      font-size: 11px;
-      color: var(--body);
-      transition: transform 0.3s var(--ease);
-    }
-    .accordion-item.open .acc-arrow { transform: rotate(180deg); }
-    .accordion-body {
-      font-size: 14px;
-      color: var(--body);
-      line-height: 1.7;
-      padding: 0 0 16px;
-      display: none;
-    }
-    .accordion-item.open .accordion-body { display: block; }
+    .acc-icon { font-size: 16px; }
+    .acc-label { font-size: 14px; font-weight: 500; }
+    .acc-toggle { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; color: var(--text-muted); transition: all 0.25s var(--ease); }
+    .accordion-trigger[aria-expanded="true"] .acc-toggle { background: var(--sage); border-color: var(--sage); color: #fff; transform: rotate(45deg); }
+    .accordion-body { overflow: hidden; max-height: 0; transition: max-height 0.4s var(--ease-out); font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+    .accordion-body.open { max-height: 1200px; }
+    .accordion-body-inner { padding: 4px 0 16px; }
 
-    /* ── PLACE ITEMS ────────────────────────────────────────── */
-    .place-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f5f5f7;
-    }
+    .rules-grid { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
+    .rule-tag { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; }
+    .allowed { background: rgba(52,199,89,0.07); color: #1a7a35; border: 1px solid rgba(52,199,89,0.2); }
+    .disallowed { background: rgba(192,57,43,0.06); color: #c0392b; border: 1px solid rgba(192,57,43,0.18); }
+
+    .copy-wrap { display: inline-flex; align-items: center; gap: 6px; }
+    .copy-btn { font-size: 11px; font-weight: 600; color: var(--sage); background: var(--sage-light); border: 1px solid var(--sage-border); border-radius: 100px; padding: 2px 10px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+    .copy-btn:hover { background: var(--sage); color: #fff; }
+    .copy-toast { display: none; font-size: 11px; color: var(--sage); font-weight: 600; }
+
+    .place-item { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); }
     .place-item:last-child { border-bottom: none; }
-    .place-icon { font-size: 22px; flex-shrink: 0; }
+    .place-icon { font-size: 18px; flex-shrink: 0; }
     .place-info { flex: 1; }
-    .place-name { font-size: 14px; font-weight: 600; color: var(--headline); }
-    .place-meta { font-size: 12px; color: var(--body); margin-top: 1px; }
-    .place-dist {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--blue);
-      background: #eff6ff;
-      padding: 4px 8px;
-      border-radius: 8px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
+    .place-name { font-size: 14px; font-weight: 500; color: var(--text); }
+    .place-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .place-dist { font-size: 12px; font-weight: 600; color: var(--sage); white-space: nowrap; }
 
-    /* ── MAP PLACEHOLDER ────────────────────────────────────── */
-    .map-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: #eff6ff;
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 16px;
-      color: var(--blue);
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.25s var(--ease);
-    }
-    .map-link:hover { background: #dbeafe; }
+    .map-link { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: var(--radius-sm); background: var(--sage-light); border: 1px solid var(--sage-border); color: var(--sage); font-weight: 500; font-size: 14px; text-decoration: none; margin-bottom: 14px; transition: all 0.2s; }
+    .map-link:hover { background: var(--sage); color: #fff; }
 
-    /* ── CONTACT CARDS ──────────────────────────────────────── */
-    .contact-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 0;
-      border-bottom: 1px solid #f5f5f7;
-    }
+    .contact-card { display: flex; align-items: center; gap: 14px; padding: 15px 0; border-bottom: 1px solid var(--border); }
     .contact-card:last-child { border-bottom: none; padding-bottom: 0; }
-    .contact-left { display: flex; align-items: center; gap: 12px; }
-    .contact-avatar {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #e8f4fd, #dbeafe);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-    .contact-name { font-size: 15px; font-weight: 600; color: var(--headline); }
-    .contact-role { font-size: 12px; color: var(--body); margin-top: 1px; }
+    .contact-left { display: flex; align-items: center; gap: 14px; flex: 1; }
+    .contact-avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #a8c5ab, var(--sage)); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .contact-name { font-size: 15px; font-weight: 600; color: var(--text); }
+    .contact-role { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
     .contact-actions { display: flex; gap: 8px; }
-    .contact-btn {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      text-decoration: none;
-      transition: transform 0.2s var(--ease), opacity 0.2s;
-    }
-    .contact-btn:hover { transform: scale(1.1); }
-    .btn-msg { background: #e8f5e9; }
-    .btn-call { background: #eff6ff; }
+    .contact-btn { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; font-size: 16px; text-decoration: none; border: 1px solid var(--border); background: var(--bg); box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s; }
+    .contact-btn:hover { transform: scale(1.1); box-shadow: var(--shadow); }
 
-    /* ── SOS BANNER ─────────────────────────────────────────── */
-    .sos-banner {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: linear-gradient(135deg, #fff1f0, #fde8e8);
-      border: 1.5px solid #fca5a5;
-      border-radius: var(--radius);
-      padding: 18px 20px;
-      margin-bottom: 16px;
-      text-decoration: none;
-      transition: all 0.3s var(--ease);
-    }
-    .sos-banner:hover { transform: scale(1.01); box-shadow: 0 4px 20px rgba(220,38,38,0.15); }
-    .sos-icon { font-size: 32px; }
-    .sos-title { font-size: 16px; font-weight: 700; color: #991b1b; }
-    .sos-sub { font-size: 13px; color: #b91c1c; margin-top: 2px; }
+    .cta-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--sage); color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; padding: 12px 26px; border-radius: 100px; border: none; cursor: pointer; text-decoration: none; transition: all 0.25s var(--ease); margin-right: 8px; margin-top: 4px; box-shadow: 0 2px 12px rgba(107,143,113,0.25); }
+    .cta-btn:hover { background: #5a7d60; transform: scale(1.02); }
+    .cta-teal { background: #3a9fb5; box-shadow: 0 2px 12px rgba(58,159,181,0.25); }
+    .cta-teal:hover { background: #3090a5; }
 
-    /* ── CTA BUTTONS ────────────────────────────────────────── */
-    .cta-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 20px;
-      border-radius: 14px;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s var(--ease);
-      cursor: pointer;
-      border: none;
-      font-family: var(--font);
-      margin-bottom: 8px;
-    }
-    .cta-primary {
-      background: var(--blue);
-      color: #fff;
-    }
-    .cta-primary:hover {
-      background: var(--blue-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(0,113,227,0.3);
-    }
-    .cta-secondary {
-      background: #f5f5f7;
-      color: var(--headline);
-    }
-    .cta-secondary:hover {
-      background: #e8e8ed;
-      transform: translateY(-1px);
-    }
-    .cta-green {
-      background: #34c759;
-      color: #fff;
-    }
-    .cta-green:hover {
-      background: #2db84e;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(52,199,89,0.3);
-    }
+    .sos-banner { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #c0392b, #e74c3c); padding: 16px 20px; border-radius: var(--radius); text-decoration: none; margin-bottom: 14px; box-shadow: 0 4px 16px rgba(192,57,43,0.2); transition: opacity 0.2s, transform 0.2s; }
+    .sos-banner:hover { opacity: 0.92; transform: scale(1.01); }
+    .sos-icon { font-size: 26px; }
+    .sos-title { font-size: 15px; font-weight: 600; color: #fff; }
+    .sos-sub { font-size: 12px; color: rgba(255,255,255,0.78); margin-top: 2px; }
 
-    /* ── WIFI DISPLAY ───────────────────────────────────────── */
-    .wifi-block {
-      background: linear-gradient(135deg, #1d1d1f, #2c2c2e);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
-      color: #fff;
-    }
-    .wifi-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
-    .wifi-val { font-size: 20px; font-weight: 700; letter-spacing: 0.03em; color: #fff; font-family: 'SF Mono', 'Monaco', monospace; }
-    .wifi-row { margin-bottom: 16px; }
-    .wifi-row:last-of-type { margin-bottom: 0; }
-    .copy-wrap { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
-    .copy-btn {
-      background: rgba(255,255,255,0.15);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 8px;
-      padding: 6px 14px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: var(--font);
-      transition: background 0.2s;
-    }
-    .copy-btn:hover { background: rgba(255,255,255,0.25); }
-    .copy-toast {
-      font-size: 12px;
-      color: #34c759;
-      opacity: 0;
-      font-weight: 600;
-      transition: opacity 0.2s;
-    }
-    .copy-toast.show { opacity: 1; }
-
-    /* ── CHECKLIST ──────────────────────────────────────────── */
-    .checklist-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 13px 0;
-      border-bottom: 1px solid #f5f5f7;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
+    .checklist-item { display: flex; align-items: center; gap: 13px; padding: 12px 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: opacity 0.2s; }
     .checklist-item:last-child { border-bottom: none; }
-    .check-circle {
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      border: 2px solid #d1d1d6;
-      background: transparent;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.25s var(--ease);
-      font-size: 12px;
-      font-weight: 700;
-      color: transparent;
-    }
-    .checklist-item.done .check-circle {
-      background: #34c759;
-      border-color: #34c759;
-      color: #fff;
-    }
-    .checklist-item.done { opacity: 0.55; }
-    .checklist-item.done .check-text { text-decoration: line-through; color: var(--body); }
-    .check-text { font-size: 14px; color: var(--headline); line-height: 1.5; }
-    .checklist-progress {
-      text-align: center;
-      font-size: 13px;
-      color: var(--body);
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid #f5f5f7;
-    }
-    .progress-bar-wrap {
-      background: #f5f5f7;
-      border-radius: 100px;
-      height: 4px;
-      margin: 8px 0 6px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: #34c759;
-      border-radius: 100px;
-      transition: width 0.4s var(--ease);
+    .checklist-item.done { opacity: 0.38; }
+    .checklist-item.done .check-label { text-decoration: line-through; }
+    .checklist-item input[type="checkbox"] { display: none; }
+    .check-box { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .checklist-item.done .check-box { background: var(--sage); border-color: var(--sage); }
+    .checklist-item.done .check-box::after { content: '✓'; font-size: 11px; color: #fff; font-weight: 700; }
+    .check-label { font-size: 14px; color: var(--text-dim); }
+    .checklist-progress { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 14px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid var(--border); padding: 8px 8px max(env(safe-area-inset-bottom), 8px); display: flex; gap: 4px; z-index: 200; }
+    .bn-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 4px; border: none; background: none; border-radius: var(--radius-sm); cursor: pointer; font-family: 'Inter', sans-serif; color: var(--text-muted); font-size: 10px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; transition: all 0.2s; }
+    .bn-item:hover { color: var(--text); }
+    .bn-item.active { color: var(--sage); }
+    .bn-icon { font-size: 20px; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .bn-item.active .bn-icon { background: var(--sage-light); }
+
+    @media (max-width: 480px) {
+      .hero { padding: 70px 20px 50px; }
+      .card { padding: 22px 18px; }
+      .container { padding-bottom: 110px; }
     }
 
-    /* ── BODY TEXT ──────────────────────────────────────────── */
-    .body-text {
-      font-size: 14px;
-      color: var(--body);
-      line-height: 1.75;
-    }
-    .body-text strong { color: var(--headline); }
-
-    /* ── ANIMATE-IN ─────────────────────────────────────────── */
-    .animate-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
-    }
-    .animate-in.in-view { opacity: 1; transform: translateY(0); }
-
-    /* ── BOTTOM NAV ─────────────────────────────────────────── */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 100;
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      background: rgba(255,255,255,0.88);
-      border-top: 1px solid rgba(0,0,0,0.06);
-      display: flex;
-      justify-content: space-around;
-      align-items: stretch;
-      padding-bottom: env(safe-area-inset-bottom, 0px);
-    }
-    .bn-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      padding: 10px 4px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 10px;
-      font-weight: 500;
-      color: var(--body);
-      transition: color 0.2s var(--ease);
-      font-family: var(--font);
-    }
-    .bn-icon { font-size: 20px; }
-    .bn-item.active { color: var(--blue); font-weight: 600; }
-    .bn-item:hover { color: var(--headline); }
-
-    /* ── SECTION TRANSITIONS ────────────────────────────────── */
-    .section.visible {
-      display: block;
-      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
-    }
-
-    /* ── RESPONSIVE ─────────────────────────────────────────── */
-    @media (min-width: 480px) {
-      .hero { padding: 72px 32px 80px; }
-      .hero h1 { font-size: 60px; }
-      .container { padding: 28px 20px 20px; }
-    }
-    @media (min-width: 640px) {
-      .rules-grid { grid-template-columns: repeat(3, 1fr); }
-    }
+    #loadingScreen { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; background: #fafaf8; transition: opacity 0.7s var(--ease), visibility 0.7s; }
+    #loadingScreen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loading-icons { display: flex; gap: 22px; justify-content: center; margin-bottom: 30px; }
+    .l-icon { font-size: 34px; display: inline-block; animation: iconFloat 1.8s ease-in-out infinite; }
+    .l-icon:nth-child(1) { animation-delay: 0s; }
+    .l-icon:nth-child(2) { animation-delay: 0.22s; }
+    .l-icon:nth-child(3) { animation-delay: 0.44s; }
+    .l-icon:nth-child(4) { animation-delay: 0.66s; }
+    @keyframes iconFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-13px) scale(1.08); } }
+    .loading-text { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; font-style: italic; letter-spacing: 0.18em; color: #6b8f71; }
+    .loading-dots { display: flex; gap: 6px; justify-content: center; margin-top: 14px; }
+    .loading-dots span { width: 5px; height: 5px; border-radius: 50%; background: #6b8f71; animation: dotPulse 1.4s ease-in-out infinite; }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dotPulse { 0%, 80%, 100% { transform: scale(0.5); opacity: 0.22; } 40% { transform: scale(1); opacity: 1; } }
   </style>
 </head>
 <body>
 
-<!-- ── HERO ─────────────────────────────────────────────────── -->
+<div id="loadingScreen">
+  <div class="loading-icons">
+    <span class="l-icon">🛏️</span>
+    <span class="l-icon">💡</span>
+    <span class="l-icon">🚗</span>
+    <span class="l-icon">✈️</span>
+  </div>
+  <div class="loading-text">loading guidebook</div>
+  <div class="loading-dots"><span></span><span></span><span></span></div>
+</div>
+
 <div class="hero">
-  <div class="hero-eyebrow">Air Residences · Makati City</div>
+  <div class="hero-eyebrow">Air Residences · Makati · Philippines</div>
   <h1>Room 965</h1>
-  <p class="hero-sub">Everything you need for a perfect stay</p>
+  <div class="hero-rule"></div>
+  <p>Your guide to a perfect stay</p>
   <div class="hero-pills">
-    <div class="hero-pill">🔑 Check-in 3:00 PM</div>
-    <div class="hero-pill">🧳 Check-out 12:00 PM</div>
-    <div class="hero-pill">👥 Up to 3 guests</div>
+    <span class="hero-pill">Check-in 3:00 PM</span>
+    <span class="hero-pill">Check-out 12:00 PM</span>
+    <span class="hero-pill">Up to 3 Guests</span>
   </div>
 </div>
 
-<!-- ── TOP NAV ────────────────────────────────────────────────── -->
-<nav class="top-nav" id="topNav">
-  <button class="nav-tab active" data-tab="arrival" onclick="showSection('arrival')">🔑 Arrival</button>
-  <button class="nav-tab" data-tab="home" onclick="showSection('home')">🏠 Home Guide</button>
-  <button class="nav-tab" data-tab="wifi" onclick="showSection('wifi')">📶 Wi-Fi</button>
-  <button class="nav-tab" data-tab="rules" onclick="showSection('rules')">📋 Rules</button>
-  <button class="nav-tab" data-tab="neighborhood" onclick="showSection('neighborhood')">📍 Area</button>
-  <button class="nav-tab" data-tab="contact" onclick="showSection('contact')">💬 Contact</button>
-  <button class="nav-tab" data-tab="checkout" onclick="showSection('checkout')">🧳 Check-out</button>
-</nav>
-
-<!-- ── MAIN ──────────────────────────────────────────────────── -->
 <div class="container">
 
-  <!-- ── ARRIVAL ─────────────────────────────────────────────── -->
+  <div class="quick-bar">
+    <div class="quick-item"><span class="qi-icon">🔑</span><div class="qi-label">Check-in</div><div class="qi-val">3:00 PM</div></div>
+    <div class="quick-item"><span class="qi-icon">🧳</span><div class="qi-label">Check-out</div><div class="qi-val">12:00 PM</div></div>
+    <div class="quick-item"><span class="qi-icon">👥</span><div class="qi-label">Guests</div><div class="qi-val">Up to 3</div></div>
+  </div>
+
+  <div class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" onclick="showSection('arrival')">🔑 Arrival</button>
+    <button class="nav-tab" onclick="showSection('home')">🏠 Home Guide</button>
+    <button class="nav-tab" onclick="showSection('wifi')">📶 Wi-Fi</button>
+    <button class="nav-tab" onclick="showSection('rules')">📋 Rules</button>
+    <button class="nav-tab" onclick="showSection('neighborhood')">📍 Area</button>
+    <button class="nav-tab" onclick="showSection('contact')">💬 Contact</button>
+    <button class="nav-tab" onclick="showSection('checkout')">🧳 Check-out</button>
+  </div>
+
+  <!-- ARRIVAL -->
   <div class="section visible" id="sec-arrival">
-
     <div class="card">
-      <div class="card-title">🏠 Your Address</div>
-      <div class="info-row">
-        <span class="info-icon">📍</span>
-        <div>
-          <div class="info-label">Property Address</div>
-          <div class="info-val">Room 965<br>Air Residences, Malugay Street, Brgy. San Antonio, Makati, Philippines</div>
-        </div>
-      </div>
-      <a href="https://maps.app.goo.gl/ppBcCAhrwm9eyZ5T6" class="cta-btn cta-primary" style="margin-top:16px">🗺️ Open in Maps</a>
+      <div class="card-title">Your Address</div>
+      <div class="info-row"><span class="info-icon">📍</span><div><div class="info-label">Property Address</div><div class="info-val">Room 965<br>Air Residences, Malugay Street, Brgy. San Antonio, Makati, Philippines</div></div></div>
+      <a href="https://maps.app.goo.gl/ppBcCAhrwm9eyZ5T6" class="cta-btn cta-teal" style="margin-top:16px">🗺️ Open in Maps</a>
     </div>
-
-    <div class="card card-notice">
-      <div class="card-title">🏢 Gentle Reminder</div>
-      <p class="body-text">
-        This is <strong>NOT A HOTEL</strong> establishment. You are staying in a <strong>shared residential building</strong> with full-time residents who live here permanently.<br><br>
-        Kindly avoid storing or stacking garbage inside the unit, as this may attract pests and insects. Please dispose of trash regularly in the <strong>garbage room near the elevators</strong>.<br><br>
-        Thank you for helping maintain a clean and peaceful environment for everyone. 🙏
-      </p>
+    <div class="card card-warm">
+      <div class="card-title">Gentle Reminder</div>
+      <p style="font-size:14px;color:#7a5a30;line-height:1.85">This is <strong>NOT A HOTEL</strong> establishment. You are staying in a <strong>shared residential building</strong> with full-time residents who live here permanently.<br><br>Kindly avoid storing or stacking garbage inside the unit, as this may attract pests and insects. Please dispose of trash regularly in the <strong>garbage room near the elevators</strong>.<br><br>Thank you for helping maintain a clean and peaceful environment for everyone. 🙏</p>
     </div>
-
     <div class="card">
-      <div class="card-title">🔑 Key &amp; Entry</div>
-      <div class="info-row">
-        <span class="info-icon">📬</span>
-        <div>
-          <div class="info-label">Key Location</div>
-          <div class="info-val">Your key is inside the <strong>mailbox</strong> at the building entrance. Use it to unlock the unit door.</div>
-        </div>
-      </div>
-      <div class="info-row">
-        <span class="info-icon">🚪</span>
-        <div>
-          <div class="info-label">Entry Notes</div>
-          <div class="info-val">Retrieve the key from the mailbox, unlock the front door, and return the key to the mailbox when you check out.</div>
-        </div>
-      </div>
-      <div class="info-row">
-        <span class="info-icon">🅿️</span>
-        <div>
-          <div class="info-label">Parking</div>
-          <div class="info-val">Mall pay parking is available within the building. Rate: <strong>₱20/hour</strong>.</div>
-        </div>
-      </div>
+      <div class="card-title">Key &amp; Entry</div>
+      <div class="info-row"><span class="info-icon">📬</span><div><div class="info-label">Key Location</div><div class="info-val">Your key is inside the <strong>mailbox</strong> at the building entrance. Use it to unlock the unit door.</div></div></div>
+      <div class="info-row"><span class="info-icon">🚪</span><div><div class="info-label">Entry Notes</div><div class="info-val">Retrieve the key from the mailbox, unlock the front door, and return the key to the mailbox when you check out.</div></div></div>
+      <div class="info-row"><span class="info-icon">🅿️</span><div><div class="info-label">Parking</div><div class="info-val">Mall pay parking is available within the building. Rate: <strong>₱20/hour</strong>.</div></div></div>
     </div>
-
     <div class="card">
-      <div class="card-title">🚶 Step-by-Step Arrival</div>
+      <div class="card-title">Step-by-Step Arrival</div>
       <div class="step-list">
-        <div class="step">
-          <div class="step-num"></div>
-          <div class="step-text">
-            <strong>Getting here from the airport</strong>
-            <span>We recommend using <strong>Grab</strong> or <strong>InDrive</strong>. Set your destination to: <em>"Air Residences, Makati City, Metro Manila"</em></span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num"></div>
-          <div class="step-text">
-            <strong>Register at the front desk</strong>
-            <span>Present your <strong>authorization form</strong> and a valid ID to the building lobby staff.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num"></div>
-          <div class="step-text">
-            <strong>Pick up your keys</strong>
-            <span>Retrieve your key from inside the <strong>mailbox</strong>.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num"></div>
-          <div class="step-text">
-            <strong>Proceed to the designated elevator</strong>
-            <span>Use the elevator assigned to your floor as directed by front desk staff.</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num"></div>
-          <div class="step-text">
-            <strong>Enjoy your stay! 🎉</strong>
-            <span>Make yourself at home — we hope you have a wonderful time at Casa Chico Makati.</span>
-          </div>
-        </div>
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Getting here from the airport</strong>We recommend using <strong>Grab</strong> or <strong>InDrive</strong>. Set your destination to: <em>"Air Residences, Makati City, Metro Manila"</em></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Register at the front desk</strong>Present your <strong>authorization form</strong> and a valid ID to the building lobby staff.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Pick up your keys</strong>Retrieve your key from inside the <strong>mailbox</strong>.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Proceed to the designated elevator</strong>Use the elevator assigned to your floor as directed by front desk staff.</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Enjoy your stay! 🎉</strong>Make yourself at home — we hope you have a wonderful time at Casa Chico Makati.</div></div>
       </div>
     </div>
-
   </div>
 
-  <!-- ── HOME GUIDE ────────────────────────────────────────────── -->
+  <!-- HOME GUIDE -->
   <div class="section" id="sec-home">
-
-    <div class="card card-notice">
-      <div class="card-title">🏢 Gentle Reminder</div>
-      <p class="body-text">
-        This is <strong>NOT A HOTEL</strong> establishment. You are staying in a <strong>shared residential building</strong> with full-time residents who live here permanently.<br><br>
-        Kindly avoid storing or stacking garbage inside the unit, as this may attract pests and insects. Please dispose of trash regularly in the <strong>garbage room near the elevators</strong>.<br><br>
-        Thank you for helping maintain a clean and peaceful environment for everyone. 🙏
-      </p>
+    <div class="card card-warm">
+      <div class="card-title">Gentle Reminder</div>
+      <p style="font-size:14px;color:#7a5a30;line-height:1.85">This is <strong>NOT A HOTEL</strong> establishment. You are staying in a <strong>shared residential building</strong> with full-time residents who live here permanently.<br><br>Kindly avoid storing or stacking garbage inside the unit, as this may attract pests and insects. Please dispose of trash regularly in the <strong>garbage room near the elevators</strong>.<br><br>Thank you for helping maintain a clean and peaceful environment for everyone. 🙏</p>
     </div>
-
-    <div class="card card-notice">
-      <div class="card-title">🛗 Elevator Notice</div>
-      <p class="body-text">
-        Please be aware that this is a <strong>highly booked condominium on Airbnb</strong>, and the building is home to many full-time residents as well. As a result, <strong>elevators may take a while</strong> to reach your floor — especially during <strong>rush hours</strong> (mornings and evenings).<br><br>
-        We kindly ask that you <strong>plan ahead of time</strong> whenever you need to head out, so you can avoid any inconvenience or delays. Thank you for your patience and understanding! 🙏
-      </p>
+    <div class="card card-warm">
+      <div class="card-title">Elevator Notice</div>
+      <p style="font-size:14px;color:#7a5a30;line-height:1.85">Please be aware that this is a <strong>highly booked condominium on Airbnb</strong>, and the building is home to many full-time residents as well. As a result, <strong>elevators may take a while</strong> to reach your floor — especially during <strong>rush hours</strong> (mornings and evenings).<br><br>We kindly ask that you <strong>plan ahead of time</strong> whenever you need to head out, so you can avoid any inconvenience or delays. Thank you for your patience and understanding! 🙏</p>
     </div>
-
-    <div class="card card-highlight">
-      <div class="card-title">🌿 A Note on Shared Living</div>
-      <p class="body-text">
-        As with most multi-unit residential buildings, our shared common areas — hallways, stairwells, and corridors — are used by many residents daily. Occasionally, an insect may find its way in, particularly during <strong>warmer months</strong>. This is completely normal for buildings of this nature.<br><br>
-        Please know that we take <strong>cleanliness very seriously</strong>. Your unit is thoroughly cleaned and sanitized before every stay, and we continuously do our best to ensure a fresh and comfortable environment for all our guests.<br><br>
-        If you ever notice anything that concerns you during your stay, please don't hesitate to <strong>reach out to us</strong> — we're always here and happy to help. 🙏
-      </p>
+    <div class="card card-warm">
+      <div class="card-title">A Note on Shared Living</div>
+      <p style="font-size:14px;color:#7a5a30;line-height:1.85">As with most multi-unit residential buildings, our shared common areas — hallways, stairwells, and corridors — are used by many residents daily. Occasionally, an insect may find its way in, particularly during <strong>warmer months</strong>. This is completely normal for buildings of this nature.<br><br>Please know that we take <strong>cleanliness very seriously</strong>. Your unit is thoroughly cleaned and sanitized before every stay, and we continuously do our best to ensure a fresh and comfortable environment for all our guests.<br><br>If you ever notice anything that concerns you during your stay, please don't hesitate to <strong>reach out to us</strong> — we're always here and happy to help. 🙏</p>
     </div>
-
     <div class="card">
-      <div class="card-title">🏠 Room by Room Guide</div>
-
+      <div class="card-title">Room by Room Guide</div>
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🛋️</span><span class="acc-label">Living Room</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <strong>TV:</strong> Use the black remote. Netflix is already logged in and ready to use. If you find it has been logged out, just message us and we'll help you get back in.<br><br>
-          <strong>AC:</strong> Use the white remote. Recommended temperature is <strong>20°C</strong>.
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🛋️</span><span class="acc-label">Living Room</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><strong style="color:var(--text)">TV:</strong> Use the black remote. Netflix is already logged in and ready to use. If you find it has been logged out, just message us and we'll help you get back in.<br><br><strong style="color:var(--text)">AC:</strong> Use the white remote. Recommended temperature is <strong>20°C</strong>.</div></div>
       </div>
-
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🍳</span><span class="acc-label">Kitchen</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <strong>Cooking tools:</strong> All basic cooking tools are available inside the cabinets — feel free to use them.<br><br>
-          <strong>Important:</strong> Please do not leave dirty plates and utensils in the sink, as this may attract unwanted pests and insects. Do not open cabinets with locks, as we use them for storage of cleaning tools.<br><br>
-          <strong>Trash:</strong> Please dispose of your garbage in the <strong>garbage room near the elevators</strong>.
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🍳</span><span class="acc-label">Kitchen</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><strong style="color:var(--text)">Cooking tools:</strong> All basic cooking tools are available inside the cabinets — feel free to use them.<br><br><strong style="color:var(--text)">Important:</strong> Please do not leave dirty plates and utensils in the sink, as this may attract unwanted pests and insects. Do not open cabinets with locks, as we use them for storage of cleaning tools.<br><br><strong style="color:var(--text)">Trash:</strong> Please dispose of your garbage in the <strong>garbage room near the elevators</strong>.</div></div>
       </div>
-
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🛏️</span><span class="acc-label">Bedrooms</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <strong>Bed:</strong> Queen size bed with 4 pillows and duvet.<br><br>
-          <strong>Towels:</strong> Fresh towels are provided and placed on top of the bed.
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🛏️</span><span class="acc-label">Bedrooms</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><strong style="color:var(--text)">Bed:</strong> Queen size bed with 4 pillows and duvet.<br><br><strong style="color:var(--text)">Towels:</strong> Fresh towels are provided and placed on top of the bed.</div></div>
       </div>
-
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🚿</span><span class="acc-label">Bathroom</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <strong>Shower:</strong> Hot water comes from the telephone shower head — turn the knob to redirect the water. Adjust the heater via the separate heater box located on top of the shower.<br><br>
-          <strong>Supplies:</strong> Shampoo, conditioner, body wash, and hair dryer are provided.<br><br>
-          <strong>Toilet:</strong> Please don't flush wipes, paper towels, or anything else — a trash bin is provided for these.
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🚿</span><span class="acc-label">Bathroom</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><strong style="color:var(--text)">Shower:</strong> Hot water comes from the telephone shower head — turn the knob to redirect the water. Adjust the heater via the separate heater box located on top of the shower.<br><br><strong style="color:var(--text)">Supplies:</strong> Shampoo, conditioner, body wash, and hair dryer are provided.<br><br><strong style="color:var(--text)">Toilet:</strong> Please don't flush wipes, paper towels, or anything else — a trash bin is provided for these.</div></div>
       </div>
-
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🏊</span><span class="acc-label">Swimming Pool (8th Floor)</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <strong>Location:</strong> The swimming pool is located on the <strong>8th floor</strong> of the building.<br><br>
-          <strong>Access Fee:</strong> Please note that there is a pool access fee:<br>
-          &bull; <strong>Regular Days:</strong> ₱150 per person<br>
-          &bull; <strong>Holidays:</strong> ₱300 per person<br><br>
-          Please message us at least a day before you plan to use the pool so we can arrange your pass in advance.
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🏊</span><span class="acc-label">Swimming Pool (8th Floor)</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><strong style="color:var(--text)">Location:</strong> The swimming pool is located on the <strong>8th floor</strong> of the building.<br><br><strong style="color:var(--text)">Access Fee:</strong> Please note that there is a pool access fee:<br>• <strong>Regular Days:</strong> ₱150 per person<br>• <strong>Holidays:</strong> ₱300 per person<br><br>Please message us at least a day before you plan to use the pool so we can arrange your pass in advance.</div></div>
       </div>
-
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🧘</span><span class="acc-label">Other Amenities (7th &amp; 8th Floor)</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          The following amenities are available for your use and are located on the <strong>7th and 8th floors</strong> of the building:<br><br>
-          &bull; <strong>Yoga Area</strong> — perfect for morning stretches and relaxation sessions<br>
-          &bull; <strong>Study Area</strong> — a quiet space for work or focused study<br>
-          &bull; <strong>Playground</strong> — available for younger guests and families<br><br>
-          Please be considerate of other residents when using shared amenity spaces.
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🧘</span><span class="acc-label">Other Amenities (7th &amp; 8th Floor)</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner">The following amenities are available for your use and are located on the <strong>7th and 8th floors</strong> of the building:<br><br>• <strong>Yoga Area</strong> — perfect for morning stretches and relaxation sessions<br>• <strong>Study Area</strong> — a quiet space for work or focused study<br>• <strong>Playground</strong> — available for younger guests and families<br><br>Please be considerate of other residents when using shared amenity spaces.</div></div>
       </div>
-
     </div>
-
   </div>
 
-  <!-- ── WI-FI ──────────────────────────────────────────────────── -->
+  <!-- WIFI -->
   <div class="section" id="sec-wifi">
-
     <div class="card">
-      <div class="card-title">📶 Wi-Fi Details</div>
-      <div class="wifi-block">
-        <div class="wifi-row">
-          <div class="wifi-label">Network Name (SSID)</div>
-          <div class="wifi-val">WOOFY_F06D_5G</div>
-          <div class="copy-wrap">
-            <button class="copy-btn" onclick="copyText('WOOFY_F06D_5G', this)">Copy</button>
-            <span class="copy-toast">Copied!</span>
-          </div>
-        </div>
-        <div class="wifi-row">
-          <div class="wifi-label">Password</div>
-          <div class="wifi-val">78303b7df06d</div>
-          <div class="copy-wrap">
-            <button class="copy-btn" onclick="copyText('78303b7df06d', this)">Copy</button>
-            <span class="copy-toast">Copied!</span>
-          </div>
-        </div>
-      </div>
-      <div class="info-row" style="padding-top:0">
-        <span class="info-icon">⚡</span>
-        <div>
-          <div class="info-label">Speed</div>
-          <div class="info-val">50 Mbps — great for streaming &amp; video calls</div>
-        </div>
-      </div>
+      <div class="card-title">Wi-Fi Details</div>
+      <div class="info-row"><span class="info-icon">📡</span><div><div class="info-label">Network Name (SSID)</div><div class="info-val" style="display:flex;align-items:center;flex-wrap:wrap;gap:8px">WOOFY_F06D_5G <span class="copy-wrap"><button class="copy-btn" onclick="copyText('WOOFY_F06D_5G', this)">Copy</button><span class="copy-toast">Copied!</span></span></div></div></div>
+      <div class="info-row"><span class="info-icon">🔒</span><div><div class="info-label">Password</div><div class="info-val" style="display:flex;align-items:center;flex-wrap:wrap;gap:8px">78303b7df06d <span class="copy-wrap"><button class="copy-btn" onclick="copyText('78303b7df06d', this)">Copy</button><span class="copy-toast">Copied!</span></span></div></div></div>
+      <div class="info-row"><span class="info-icon">⚡</span><div><div class="info-label">Speed</div><div class="info-val">50 Mbps — great for streaming &amp; video calls</div></div></div>
     </div>
-
     <div class="card">
-      <div class="card-title">📺 Streaming &amp; Entertainment</div>
+      <div class="card-title">Streaming &amp; Entertainment</div>
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🎬</span><span class="acc-label">TV Streaming Apps</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <strong>Netflix</strong> is logged in and ready. Please do not log out or change account settings.<br><br>
-          In case it is not logged in, please message us so we can assist you.
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🎬</span><span class="acc-label">TV Streaming Apps</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><strong style="color:var(--text)">Netflix</strong> is logged in and ready. Please do not log out or change account settings.<br><br>In case it is not logged in, please message us so we can assist you.</div></div>
       </div>
     </div>
-
   </div>
 
-  <!-- ── RULES ──────────────────────────────────────────────────── -->
+  <!-- RULES -->
   <div class="section" id="sec-rules">
-
+    <div class="card"><div class="card-title">What's Allowed</div><div class="rules-grid"><div class="rule-tag allowed">🥂 Drinks</div><div class="rule-tag allowed">🍛 Outside food</div><div class="rule-tag allowed">🥘 Light cooking</div><div class="rule-tag allowed">🏖️ Pool use (fee)</div><div class="rule-tag allowed">🏃 Amenity use</div><div class="rule-tag allowed">👤 Visitor (until 10pm)</div></div></div>
+    <div class="card"><div class="card-title">House Rules</div><div class="rules-grid"><div class="rule-tag disallowed">🚬 No smoking (₱5,000 fine)</div><div class="rule-tag disallowed">🎉 No parties/events</div><div class="rule-tag disallowed">🔊 Quiet after 10 PM</div><div class="rule-tag disallowed">👥 Guests listed only</div><div class="rule-tag disallowed">🎥 No cameras indoors</div><div class="rule-tag disallowed">🐕 No pets allowed</div></div></div>
     <div class="card">
-      <div class="card-title">✅ What's Allowed</div>
-      <div class="rules-grid">
-        <div class="rule-tag allowed"><span class="rt-icon">🥂</span> Drinks</div>
-        <div class="rule-tag allowed"><span class="rt-icon">🍛</span> Outside food</div>
-        <div class="rule-tag allowed"><span class="rt-icon">🥘</span> Light cooking</div>
-        <div class="rule-tag allowed"><span class="rt-icon">🏖️</span> Pool use (fee)</div>
-        <div class="rule-tag allowed"><span class="rt-icon">🏃</span> Amenity use</div>
-        <div class="rule-tag allowed"><span class="rt-icon">👤</span> Visitor (until 10pm)</div>
-      </div>
+      <div class="card-title">Quiet Hours &amp; Neighbors</div>
+      <div class="info-row"><span class="info-icon">🔇</span><div><div class="info-label">Quiet Hours</div><div class="info-val" style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--sage)">10:00 PM – 8:00 AM</div></div></div>
+      <div class="info-row"><span class="info-icon">🏢</span><div><div class="info-label">Building Notes</div><div class="info-val">Please note that this is a residential building, <strong>NOT A HOTEL</strong> establishment. We ask that you respect our neighbors by keeping voices low in hallways and common areas.</div></div></div>
     </div>
-
     <div class="card">
-      <div class="card-title">🚫 House Rules</div>
-      <div class="rules-grid">
-        <div class="rule-tag disallowed"><span class="rt-icon">🚬</span> No smoking (₱5,000 fine)</div>
-        <div class="rule-tag disallowed"><span class="rt-icon">🎉</span> No parties/events</div>
-        <div class="rule-tag disallowed"><span class="rt-icon">🔊</span> Quiet after 10 PM</div>
-        <div class="rule-tag disallowed"><span class="rt-icon">👥</span> Guests listed only</div>
-        <div class="rule-tag disallowed"><span class="rt-icon">🎥</span> No cameras indoors</div>
-        <div class="rule-tag disallowed"><span class="rt-icon">🐕</span> No pets allowed</div>
-      </div>
+      <div class="card-title">Emergency Info</div>
+      <div class="info-row"><span class="info-icon">🧯</span><div><div class="info-label">Fire Extinguisher</div><div class="info-val">Next to the refrigerator. Smoke detectors are in every room — do not cover or remove.</div></div></div>
+      <div class="info-row"><span class="info-icon">🚨</span><div><div class="info-label">Emergency Exit</div><div class="info-val">Use the stairwell — <strong>do not use the elevator</strong> during a fire. Emergency exit at the end of the elevators/hallway.</div></div></div>
     </div>
-
-    <div class="card">
-      <div class="card-title">🌙 Quiet Hours &amp; Neighbors</div>
-      <div class="info-row">
-        <span class="info-icon">🔇</span>
-        <div>
-          <div class="info-label">Quiet Hours</div>
-          <div class="info-val">10:00 PM – 8:00 AM</div>
-        </div>
-      </div>
-      <div class="info-row">
-        <span class="info-icon">🏢</span>
-        <div>
-          <div class="info-label">Building Notes</div>
-          <div class="info-val">Please note that this is a residential building, <strong>NOT A HOTEL</strong> establishment. We ask that you respect our neighbors by keeping voices low in hallways and common areas.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">🔥 Emergency Info</div>
-      <div class="info-row">
-        <span class="info-icon">🧯</span>
-        <div>
-          <div class="info-label">Fire Extinguisher</div>
-          <div class="info-val">Next to the refrigerator. Smoke detectors are in every room — do not cover or remove.</div>
-        </div>
-      </div>
-      <div class="info-row">
-        <span class="info-icon">🚨</span>
-        <div>
-          <div class="info-label">Emergency Exit</div>
-          <div class="info-val">Use the stairwell — <strong>do not use the elevator</strong> during a fire. Emergency exit at the end of the elevators/hallway.</div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <!-- ── NEIGHBORHOOD ───────────────────────────────────────────── -->
+  <!-- NEIGHBORHOOD -->
   <div class="section" id="sec-neighborhood">
-
     <div class="card">
-      <div class="card-title">📍 Explore the Area</div>
-
-      <a href="https://maps.app.goo.gl/zodkk2JAYzsny3j49" class="map-link">
-        🗺️ Open Full Neighborhood Map
-      </a>
-
+      <div class="card-title">Explore the Area</div>
+      <a href="https://maps.app.goo.gl/zodkk2JAYzsny3j49" class="map-link">🗺️ Open Full Neighborhood Map</a>
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">☕</span><span class="acc-label">Coffee &amp; Breakfast</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="place-item">
-            <span class="place-icon">☕</span>
-            <div class="place-info"><div class="place-name">Zus Coffee</div><div class="place-meta">We personally recommend this</div></div>
-            <span class="place-dist">220 m</span>
-          </div>
-          <div class="place-item">
-            <span class="place-icon">🥐</span>
-            <div class="place-info"><div class="place-name">Breadtalk</div><div class="place-meta">Our go-to bakery shop</div></div>
-            <span class="place-dist">220 m</span>
-          </div>
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">☕</span><span class="acc-label">Coffee &amp; Breakfast</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><div class="place-item"><span class="place-icon">☕</span><div class="place-info"><div class="place-name">Zus Coffee</div><div class="place-meta">We personally recommend this</div></div><span class="place-dist">220 m</span></div><div class="place-item"><span class="place-icon">🥐</span><div class="place-info"><div class="place-name">Breadtalk</div><div class="place-meta">Our go-to bakery shop</div></div><span class="place-dist">220 m</span></div></div></div>
       </div>
-
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🍽️</span><span class="acc-label">Restaurants</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="place-item">
-            <span class="place-icon">🥘</span>
-            <div class="place-info"><div class="place-name">Recipe's by Cafe Metro</div><div class="place-meta">Filipino cuisines — our go-to restaurant</div></div>
-            <span class="place-dist">220 m</span>
-          </div>
-          <div class="place-item">
-            <span class="place-icon">🍜</span>
-            <div class="place-info"><div class="place-name">Nanyang</div><div class="place-meta">Singaporean inspired restaurant and cafe</div></div>
-            <span class="place-dist">220 m</span>
-          </div>
-          <div class="place-item">
-            <span class="place-icon">🍙</span>
-            <div class="place-info"><div class="place-name">Yuki</div><div class="place-meta">Japanese food</div></div>
-            <span class="place-dist">220 m</span>
-          </div>
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🍽️</span><span class="acc-label">Restaurants</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><div class="place-item"><span class="place-icon">🥘</span><div class="place-info"><div class="place-name">Recipe's by Cafe Metro</div><div class="place-meta">Filipino cuisines — our go-to restaurant</div></div><span class="place-dist">220 m</span></div><div class="place-item"><span class="place-icon">🍜</span><div class="place-info"><div class="place-name">Nanyang</div><div class="place-meta">Singaporean inspired restaurant and cafe</div></div><span class="place-dist">220 m</span></div><div class="place-item"><span class="place-icon">🍙</span><div class="place-info"><div class="place-name">Yuki</div><div class="place-meta">Japanese food</div></div><span class="place-dist">220 m</span></div></div></div>
       </div>
-
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🛒</span><span class="acc-label">Groceries &amp; Essentials (right below the building)</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="place-item">
-            <span class="place-icon">🛒</span>
-            <div class="place-info"><div class="place-name">Savemore</div><div class="place-meta">Open 10 AM – 9 PM</div></div>
-            <span class="place-dist">0 m</span>
-          </div>
-          <div class="place-item">
-            <span class="place-icon">💊</span>
-            <div class="place-info"><div class="place-name">Watsons Pharmacy</div><div class="place-meta">24 hours</div></div>
-            <span class="place-dist">0 m</span>
-          </div>
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🛒</span><span class="acc-label">Groceries &amp; Essentials (right below the building)</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><div class="place-item"><span class="place-icon">🛒</span><div class="place-info"><div class="place-name">Savemore</div><div class="place-meta">Open 10 AM – 9 PM</div></div><span class="place-dist">0 m</span></div><div class="place-item"><span class="place-icon">💊</span><div class="place-info"><div class="place-name">Watsons Pharmacy</div><div class="place-meta">24 hours</div></div><span class="place-dist">0 m</span></div></div></div>
       </div>
-
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🏤</span><span class="acc-label">Malls &amp; Activities</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="place-item">
-            <span class="place-icon">🏤</span>
-            <div class="place-info"><div class="place-name">SM Mall of Asia</div><div class="place-meta">Biggest mall in the Philippines</div></div>
-            <span class="place-dist">6.7 km</span>
-          </div>
-          <div class="place-item">
-            <span class="place-icon">🚲</span>
-            <div class="place-info"><div class="place-name">Salcedo Park</div><div class="place-meta">Worth a walk around</div></div>
-            <span class="place-dist">2.3 km</span>
-          </div>
-          <div class="place-item">
-            <span class="place-icon">🎨</span>
-            <div class="place-info"><div class="place-name">Ayala Museum</div><div class="place-meta">Worth a look</div></div>
-            <span class="place-dist">1.6 km</span>
-          </div>
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🏤</span><span class="acc-label">Malls &amp; Activities</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><div class="place-item"><span class="place-icon">🏤</span><div class="place-info"><div class="place-name">SM Mall of Asia</div><div class="place-meta">Biggest mall in the Philippines</div></div><span class="place-dist">6.7 km</span></div><div class="place-item"><span class="place-icon">🚲</span><div class="place-info"><div class="place-name">Salcedo Park</div><div class="place-meta">Worth a walk around</div></div><span class="place-dist">2.3 km</span></div><div class="place-item"><span class="place-icon">🎨</span><div class="place-info"><div class="place-name">Ayala Museum</div><div class="place-meta">Worth a look</div></div><span class="place-dist">1.6 km</span></div></div></div>
       </div>
-
       <div class="accordion-item open">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left"><span class="acc-icon">🚗</span><span class="acc-label">Getting Around</span></div>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="accordion-body">
-          <strong>Grab / InDrive:</strong> Best rates. For fixed rates, we highly recommend using these apps compared to traditional taxis.<br><br>
-          <strong>Parking tip:</strong> Mall pay parking is open 24/7 but is first-come-first-serve. You may also check pay parking at Assembly Grounds — the nearest pay parking to Air Residences.
-        </div>
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="true"><div class="accordion-trigger-left"><span class="acc-icon">🚗</span><span class="acc-label">Getting Around</span></div><span class="acc-toggle">+</span></button>
+        <div class="accordion-body open"><div class="accordion-body-inner"><strong style="color:var(--text)">Grab / InDrive:</strong> Best rates. For fixed rates, we highly recommend using these apps compared to traditional taxis.<br><br><strong style="color:var(--text)">Parking tip:</strong> Mall pay parking is open 24/7 but is first-come-first-serve. You may also check pay parking at Assembly Grounds — the nearest pay parking to Air Residences.</div></div>
       </div>
-
     </div>
-
   </div>
 
-  <!-- ── CONTACT ─────────────────────────────────────────────────── -->
+  <!-- CONTACT -->
   <div class="section" id="sec-contact">
-
-    <a href="tel:911" class="sos-banner">
-      <span class="sos-icon">🚨</span>
-      <div>
-        <div class="sos-title">Emergency — Call 911</div>
-        <div class="sos-sub">Tap to call emergency services</div>
-      </div>
-    </a>
-
+    <a href="tel:911" class="sos-banner"><span class="sos-icon">🚨</span><div><div class="sos-title">Emergency — Call 911</div><div class="sos-sub">Tap to call emergency services</div></div></a>
     <div class="card">
-      <div class="card-title">👋 Your Host Team</div>
-
-      <div class="contact-card">
-        <div class="contact-left">
-          <div class="contact-avatar">😊</div>
-          <div>
-            <div class="contact-name">Joshua Natividad</div>
-            <div class="contact-role">Your Host — available 24/7</div>
-          </div>
-        </div>
-        <div class="contact-actions">
-          <a href="sms:+639662775947" class="contact-btn btn-msg" title="Message">💬</a>
-          <a href="tel:+639662775947" class="contact-btn btn-call" title="Call">📞</a>
-        </div>
-      </div>
-
-      <div class="contact-card">
-        <div class="contact-left">
-          <div class="contact-avatar">😊</div>
-          <div>
-            <div class="contact-name">John Araullo</div>
-            <div class="contact-role">Your Host — available 24/7</div>
-          </div>
-        </div>
-        <div class="contact-actions">
-          <a href="sms:+639561357653" class="contact-btn btn-msg" title="Message">💬</a>
-          <a href="tel:+639561357653" class="contact-btn btn-call" title="Call">📞</a>
-        </div>
-      </div>
-
+      <div class="card-title">Your Host Team</div>
+      <div class="contact-card"><div class="contact-left"><div class="contact-avatar">😊</div><div><div class="contact-name">Joshua Natividad</div><div class="contact-role">Your Host — available 24/7</div></div></div><div class="contact-actions"><a href="sms:+639662775947" class="contact-btn">💬</a><a href="tel:+639662775947" class="contact-btn">📞</a></div></div>
+      <div class="contact-card"><div class="contact-left"><div class="contact-avatar">😊</div><div><div class="contact-name">John Araullo</div><div class="contact-role">Your Host — available 24/7</div></div></div><div class="contact-actions"><a href="sms:+639561357653" class="contact-btn">💬</a><a href="tel:+639561357653" class="contact-btn">📞</a></div></div>
     </div>
-
     <div class="card">
-      <div class="card-title">🆘 Local Emergency Services</div>
-
-      <div class="contact-card">
-        <div class="contact-left">
-          <div class="contact-avatar" style="background:linear-gradient(135deg,#fee2e2,#fecaca)">🏥</div>
-          <div>
-            <div class="contact-name">Makati Medical City</div>
-            <div class="contact-role">Nearest hospital — 500 meters</div>
-          </div>
-        </div>
-        <div class="contact-actions">
-          <a href="tel:+63288888910" class="contact-btn btn-call" title="Call">📞</a>
-        </div>
-      </div>
-
-      <div class="contact-card">
-        <div class="contact-left">
-          <div class="contact-avatar" style="background:linear-gradient(135deg,#eff6ff,#dbeafe)">🚓</div>
-          <div>
-            <div class="contact-name">Makati City Central Police Station</div>
-            <div class="contact-role">Non-urgent police matters</div>
-          </div>
-        </div>
-        <div class="contact-actions">
-          <a href="tel:028872484" class="contact-btn btn-call" title="Call">📞</a>
-        </div>
-      </div>
-
+      <div class="card-title">Local Emergency Services</div>
+      <div class="contact-card"><div class="contact-left"><div class="contact-avatar" style="background:linear-gradient(135deg,#fde8e8,#fbd5d5)">🏥</div><div><div class="contact-name">Makati Medical City</div><div class="contact-role">Nearest hospital — 500 meters</div></div></div><div class="contact-actions"><a href="tel:+63288888910" class="contact-btn">📞</a></div></div>
+      <div class="contact-card"><div class="contact-left"><div class="contact-avatar" style="background:linear-gradient(135deg,#eff6ff,#dbeafe)">🚓</div><div><div class="contact-name">Makati City Central Police Station</div><div class="contact-role">Non-urgent police matters</div></div></div><div class="contact-actions"><a href="tel:028872484" class="contact-btn">📞</a></div></div>
     </div>
-
     <div class="card">
-      <div class="card-title">💌 Leave a Review</div>
-      <p class="body-text" style="margin-bottom:16px">We hope you enjoy your stay! As a small business owner here in the Philippines, your review really matters to us. It helps boost our small growing business. ⭐</p>
-      <a href="https://airbnb.com/" class="cta-btn cta-primary">⭐ Leave a Review on Airbnb</a>
+      <div class="card-title">Leave a Review</div>
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:16px;line-height:1.8">We hope you enjoy your stay! As a small business owner here in the Philippines, your review really matters to us. It helps boost our small growing business. ⭐</p>
+      <a href="https://airbnb.com/" class="cta-btn">⭐ Leave a Review on Airbnb</a>
     </div>
-
   </div>
 
-  <!-- ── CHECK-OUT ────────────────────────────────────────────────── -->
+  <!-- CHECKOUT -->
   <div class="section" id="sec-checkout">
-
     <div class="card">
-      <div class="card-title">🧳 Check-out Time</div>
-      <div class="info-row">
-        <span class="info-icon">⏰</span>
-        <div>
-          <div class="info-label">Check-out By</div>
-          <div class="info-val" style="font-size:28px;font-weight:700;color:var(--blue);letter-spacing:-0.02em">12:00 PM</div>
-        </div>
-      </div>
-      <div class="info-row">
-        <span class="info-icon">🔑</span>
-        <div>
-          <div class="info-label">Keys / Access</div>
-          <div class="info-val">Please return the key to the <strong>mailbox</strong> before you leave.</div>
-        </div>
-      </div>
+      <div class="card-title">Check-out Time</div>
+      <div class="info-row"><span class="info-icon">⏰</span><div><div class="info-label">Check-out By</div><div class="info-val" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--sage)">12:00 PM</div></div></div>
+      <div class="info-row"><span class="info-icon">🔑</span><div><div class="info-label">Keys / Access</div><div class="info-val">Please return the key to the <strong>mailbox</strong> before you leave.</div></div></div>
     </div>
-
     <div class="card">
-      <div class="card-title">✅ Departure Checklist</div>
-      <div id="checklistItems"></div>
-      <div class="checklist-progress" id="checklistProgress">
-        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
-        <span id="progressText">0 of 10 completed</span>
+      <div class="card-title">Departure Checklist</div>
+      <div id="checklistItems">
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_0"><span class="check-box"></span><span class="check-label">Wash used dishes and utensils</span></label>
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_1"><span class="check-box"></span><span class="check-label">Turn off all appliances (except refrigerator and Wi-Fi router)</span></label>
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_2"><span class="check-box"></span><span class="check-label">Leave used towels in the bathroom</span></label>
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_3"><span class="check-box"></span><span class="check-label">Empty all trash bins and throw them in the garbage room near the elevators</span></label>
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_4"><span class="check-box"></span><span class="check-label">Close and lock all windows</span></label>
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_5"><span class="check-box"></span><span class="check-label">Return items to their original place</span></label>
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_6"><span class="check-box"></span><span class="check-label">Make sure no personal belongings are left behind</span></label>
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_7"><span class="check-box"></span><span class="check-label">Lock the door 🚪</span></label>
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_8"><span class="check-box"></span><span class="check-label">Return the keys to the mailbox 🔑</span></label>
+        <label class="checklist-item" onclick="toggleCheck(this)"><input type="checkbox" id="item_9"><span class="check-box"></span><span class="check-label">Message us with a picture of the key inside the mailbox 📩</span></label>
       </div>
+      <div class="checklist-progress" id="checklistProgress">0 of 10 completed</div>
     </div>
-
     <div class="card">
-      <div class="card-title">💬 Before You Leave</div>
-      <p class="body-text" style="margin-bottom:16px">It was a pleasure hosting you! We hope you had an amazing time in Makati. Safe travels! Book with us again to get <strong>10% discount</strong> 🎉</p>
-      <a href="https://airbnb.com/" class="cta-btn cta-primary">⭐ Leave a Review on Airbnb</a>
-      <a href="http://m.me/casachicomakati" class="cta-btn cta-secondary">✨ Book Again &amp; Get 10% Off</a>
+      <div class="card-title">Before You Leave</div>
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:16px;line-height:1.8">It was a pleasure hosting you! We hope you had an amazing time in Makati. Safe travels! Book with us again to get <strong>10% discount</strong> 🎉</p>
+      <a href="https://airbnb.com/" class="cta-btn">⭐ Leave a Review on Airbnb</a>
+      <a href="http://m.me/casachicomakati" class="cta-btn cta-teal">✨ Book Again &amp; Get 10% Off</a>
     </div>
-
   </div>
 
-</div><!-- /container -->
+</div>
 
-<!-- ── BOTTOM NAV ─────────────────────────────────────────────────── -->
 <nav class="bottom-nav">
-  <button class="bn-item active" data-tab="arrival" onclick="showSection('arrival')" id="bn-arrival">
-    <span class="bn-icon">🔑</span>Arrival
-  </button>
-  <button class="bn-item" data-tab="home" onclick="showSection('home')" id="bn-home">
-    <span class="bn-icon">🏠</span>Home
-  </button>
-  <button class="bn-item" data-tab="wifi" onclick="showSection('wifi')" id="bn-wifi">
-    <span class="bn-icon">📶</span>Wi-Fi
-  </button>
-  <button class="bn-item" data-tab="neighborhood" onclick="showSection('neighborhood')" id="bn-neighborhood">
-    <span class="bn-icon">📍</span>Area
-  </button>
-  <button class="bn-item" data-tab="contact" onclick="showSection('contact')" id="bn-contact">
-    <span class="bn-icon">💬</span>Contact
-  </button>
+  <button class="bn-item active" onclick="showSection('arrival')" id="bn-arrival"><span class="bn-icon">🔑</span>Arrival</button>
+  <button class="bn-item" onclick="showSection('home')" id="bn-home"><span class="bn-icon">🏠</span>Home</button>
+  <button class="bn-item" onclick="showSection('wifi')" id="bn-wifi"><span class="bn-icon">📶</span>Wi-Fi</button>
+  <button class="bn-item" onclick="showSection('neighborhood')" id="bn-neighborhood"><span class="bn-icon">📍</span>Area</button>
+  <button class="bn-item" onclick="showSection('contact')" id="bn-contact"><span class="bn-icon">💬</span>Contact</button>
 </nav>
 
 <script>
-  // ── Section visibility helper ────────────────────────────────────
-  const allSections = ['arrival','home','wifi','rules','neighborhood','contact','checkout'];
-
-  // Map sections to bottom nav IDs (rules/checkout collapse to nearby tabs)
-  const bnMap = { arrival:'arrival', home:'home', wifi:'wifi', rules:'arrival', neighborhood:'neighborhood', contact:'contact', checkout:'contact' };
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(el => { if (el.isIntersecting) { el.target.classList.add('in-view'); animObserver.unobserve(el.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.card').forEach(el => animObserver.observe(el));
 
   function showSection(id) {
     const current = document.querySelector('.section.visible');
     const next = document.getElementById('sec-' + id);
-    if (current === next) return;
-
-    // Animate out
+    if (!next || current === next) return;
     if (current) {
-      current.style.opacity = '0';
-      current.style.transform = 'translateY(16px)';
-      current.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
-      setTimeout(() => {
-        current.classList.remove('visible');
-        current.style.opacity = '';
-        current.style.transform = '';
-        current.style.transition = '';
-      }, 220);
+      current.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      current.style.opacity = '0'; current.style.transform = 'translateY(10px)';
+      setTimeout(() => { current.classList.remove('visible'); current.style.cssText = ''; }, 200);
     }
-
-    // Animate in
     setTimeout(() => {
       next.classList.add('visible');
-      next.style.opacity = '0';
-      next.style.transform = 'translateY(16px)';
-      next.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
+      next.style.opacity = '0'; next.style.transform = 'translateY(10px)';
+      next.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        next.style.opacity = '1';
-        next.style.transform = 'translateY(0)';
+        next.style.opacity = '1'; next.style.transform = 'translateY(0)';
+        setTimeout(() => { next.style.cssText = ''; }, 310);
       }));
+      next.querySelectorAll('.card').forEach(el => { el.classList.remove('in-view'); animObserver.observe(el); });
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      // Re-trigger scroll animations for newly visible cards
-      setTimeout(triggerInView, 50);
-      setTimeout(() => {
-        next.style.transition = '';
-        next.style.opacity = '';
-        next.style.transform = '';
-      }, 400);
-    }, 200);
-
-    // Update top nav
-    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-    const topBtn = document.querySelector(`.nav-tab[data-tab="${id}"]`);
-    if (topBtn) {
-      topBtn.classList.add('active');
-      topBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }
-
-    // Update bottom nav
+    }, 180);
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', (t.getAttribute('onclick') || '').includes("'" + id + "'")));
     document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
-    const bnId = bnMap[id] || id;
-    const bnBtn = document.getElementById('bn-' + bnId);
-    if (bnBtn) bnBtn.classList.add('active');
+    const navMap = { arrival:'arrival', home:'home', wifi:'wifi', rules:'arrival', neighborhood:'neighborhood', contact:'contact', checkout:'contact' };
+    const bnEl = document.getElementById('bn-' + (navMap[id] || id));
+    if (bnEl) bnEl.classList.add('active');
+    const activeTab = document.querySelector('.nav-tab.active');
+    if (activeTab) activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
 
-  // ── Accordion ──────────────────────────────────────────────────
   function toggleAccordion(trigger) {
-    trigger.closest('.accordion-item').classList.toggle('open');
+    const body = trigger.nextElementSibling;
+    if (!body) return;
+    const isOpen = body.classList.contains('open');
+    trigger.setAttribute('aria-expanded', !isOpen);
+    body.classList.toggle('open', !isOpen);
   }
 
-  // ── Copy to clipboard ───────────────────────────────────────────
+  const STORAGE_KEY = 'checklistDone965';
+  function updateProgress() {
+    const items = document.querySelectorAll('.checklist-item');
+    const done = [...items].filter(i => i.classList.contains('done')).length;
+    const el = document.getElementById('checklistProgress');
+    if (el) el.textContent = done + ' of ' + items.length + ' completed';
+  }
+  function toggleCheck(label) {
+    const cb = label.querySelector('input[type="checkbox"]');
+    if (!cb) return;
+    cb.checked = !cb.checked;
+    label.classList.toggle('done', cb.checked);
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    saved[cb.id] = cb.checked;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+    updateProgress();
+  }
+  function initChecklist() {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    document.querySelectorAll('.checklist-item').forEach(label => {
+      const cb = label.querySelector('input[type="checkbox"]');
+      if (cb && saved[cb.id]) { cb.checked = true; label.classList.add('done'); }
+    });
+    updateProgress();
+  }
+  initChecklist();
+
   function copyText(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
       const toast = btn.nextElementSibling;
-      toast.classList.add('show');
-      btn.textContent = '✓ Copied';
-      setTimeout(() => {
-        toast.classList.remove('show');
-        btn.textContent = 'Copy';
-      }, 2000);
-    });
+      if (toast && toast.classList.contains('copy-toast')) { toast.style.display = 'inline'; setTimeout(() => { toast.style.display = ''; }, 2000); }
+      const orig = btn.textContent; btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = orig; }, 2000);
+    }).catch(() => {});
   }
 
-  // ── Intersection Observer for scroll animations ─────────────────
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(el => {
-      if (el.isIntersecting) {
-        el.target.classList.add('in-view');
-        observer.unobserve(el.target);
-      }
+  document.addEventListener('DOMContentLoaded', () => {
+    const first = document.querySelector('.section.visible');
+    if (first) first.querySelectorAll('.card').forEach(el => animObserver.observe(el));
+    document.querySelectorAll('.accordion-item.open').forEach(item => {
+      const body = item.querySelector('.accordion-body');
+      const trigger = item.querySelector('.accordion-trigger');
+      if (body) body.classList.add('open');
+      if (trigger) trigger.setAttribute('aria-expanded', 'true');
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  });
 
-  function triggerInView() {
-    document.querySelectorAll('.card:not(.in-view), .animate-in:not(.in-view)').forEach(el => {
-      observer.observe(el);
-    });
-  }
-
-  // ── Departure Checklist ─────────────────────────────────────────
-  const checklistTasks = [
-    { id: 'c1',  text: 'Wash used dishes and utensils' },
-    { id: 'c2',  text: 'Turn off all appliances (except refrigerator and Wi-Fi router)' },
-    { id: 'c3',  text: 'Leave used towels in the bathroom' },
-    { id: 'c4',  text: 'Empty all trash bins and throw them in the garbage room near the elevators' },
-    { id: 'c5',  text: 'Close and lock all windows' },
-    { id: 'c6',  text: 'Return items to their original place' },
-    { id: 'c7',  text: 'Make sure no personal belongings are left behind' },
-    { id: 'c8',  text: 'Lock the door 🚪' },
-    { id: 'c9',  text: 'Return the keys to the mailbox 🔑' },
-    { id: 'c10', text: 'Message us with a picture of the key inside the mailbox 📩' },
-  ];
-
-  const STORAGE_KEY = 'checklistDone965';
-  const completed = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
-
-  function renderChecklist() {
-    const container = document.getElementById('checklistItems');
-    container.innerHTML = '';
-    checklistTasks.forEach(task => {
-      const done = completed.has(task.id);
-      const item = document.createElement('div');
-      item.className = 'checklist-item' + (done ? ' done' : '');
-      item.innerHTML = `
-        <div class="check-circle">${done ? '✓' : ''}</div>
-        <span class="check-text">${task.text}</span>
-      `;
-      item.onclick = () => {
-        if (completed.has(task.id)) completed.delete(task.id);
-        else completed.add(task.id);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify([...completed]));
-        renderChecklist();
-      };
-      container.appendChild(item);
-    });
-
-    const n = completed.size;
-    const total = checklistTasks.length;
-    const pct = Math.round((n / total) * 100);
-    document.getElementById('progressFill').style.width = pct + '%';
-    const txt = document.getElementById('progressText');
-    if (n === total) {
-      txt.innerHTML = '<strong style="color:#34c759">🎉 All done — have a safe trip!</strong>';
-    } else {
-      txt.textContent = n + ' of ' + total + ' completed';
-    }
-  }
-
-  // ── Init ────────────────────────────────────────────────────────
-  renderChecklist();
-  triggerInView();
-
-  // Observe cards as sections become visible
-  window.addEventListener('DOMContentLoaded', () => {
-    triggerInView();
+  window.addEventListener('load', () => {
+    const ls = document.getElementById('loadingScreen');
+    if (!ls) return;
+    setTimeout(() => { ls.classList.add('fade-out'); setTimeout(() => ls.remove(), 700); }, 800);
   });
 </script>
-
 </body>
 </html>
